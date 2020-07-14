@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>ToDoリスト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid my-2">
+		<div class="card">
+			<h1 class="text-center">タスク一覧</h1>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="/edit" class="btn btn-primary"> <i
+							class="fas fa-user-plus ml-2">タスク登録 </i></a>
+
+						<button type="button" class="btn btn-danger float-right" id="deleteTask"
+							data-toggle="modal" data-target="#deleteModal">解除</button>
+					</div>
+				</div>
+				<div class="tab-content" id="myTabContent">
+					<div class="row">
+						<div class="col-md-6">
+							<h2 class="text-center">未完了タスク</h2>
+							<h3 class="text-center text-info"
+								th:if="${#lists.isEmpty(listTaskUnfinished)}">未完了タスクがありません</h3>
+							<div th:if="${not #lists.isEmpty(listTaskUnfinished)}"
+								class="table-responsive tablescoll">
+								<table
+									class="table table-striped tableBodyScroll table-responsive-md table1"
+									id="dataTable">
+									<thead>
+										<tr>
+											<th>タイトル</th>
+											<th>予定日</th>
+											<th>完了日</th>
+											<th>優先順位</th>
+											<th>完了</th>
+											<th>解除</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="taskUnfinished : ${listTaskUnfinished}"
+											th:id="${taskUnfinished.takusuID}">
+											<td th:title="${taskUnfinished.taitoru}"
+												th:onclick="'redirectEditTask(\'' + ${taskUnfinished.takusuID} + '\');'"
+												th:text="${taskUnfinished.taitoru}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskUnfinished.takusuID} + '\');'"
+												th:text="${taskUnfinished.yoteiBi}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskUnfinished.takusuID} + '\');'"
+												th:text="${taskUnfinished.kanryoBi}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskUnfinished.takusuID} + '\');'"
+												th:text="${taskUnfinished.yuusenjuni}"></td>
+											<td><label class="checkbox-inline"><input
+													type="checkbox" style="cursor: pointer" 
+													th:onclick="'updateTaskByCheckBox(\'' + ${taskUnfinished.takusuID} + '\');'"
+													th:value="*{taskUnfinished.takusuID}"></label></td>
+											<td><label class="checkbox-inline"><input
+													type="checkbox" style="cursor: pointer" name="task"
+													th:value="*{taskUnfinished.takusuID}"></label></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<h2 class="text-center">完了タスク</h2>
+							<h3 class="text-center text-info"
+								th:if="${#lists.isEmpty(listTaskFinished)}">完了タスクがありません</h3>
+							<div th:if="${not #lists.isEmpty(listTaskFinished)}"
+								class="table-responsive tablescoll">
+								<table class="table table-striped table-responsive-md table2"
+									id="dataTable">
+									<thead>
+										<tr>
+											<th>タイトル</th>
+											<th>予定日</th>
+											<th>完了日</th>
+											<th>優先順位</th>
+											<th>解除</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="taskFinished : ${listTaskFinished}"
+											th:id="${taskFinished.takusuID}">
+											<td th:title="${taskFinished.taitoru}"
+												th:onclick="'redirectEditTask(\'' + ${taskFinished.takusuID} + '\');'"
+												th:text="${taskFinished.taitoru}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskFinished.takusuID} + '\');'"
+												th:text="${taskFinished.yoteiBi}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskFinished.takusuID} + '\');'"
+												th:text="${taskFinished.kanryoBi}"></td>
+											<td
+												th:onclick="'redirectEditTask(\'' + ${taskFinished.takusuID} + '\');'"
+												th:text="${taskFinished.yuusenjuni}"></td>
+											<td><label class="checkbox-inline"><input
+													type="checkbox" style="cursor: pointer" name="task"
+													th:value="*{taskFinished.takusuID}"></label></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalLabel">確認</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">タスクを削除してもよろしいですか？</div>
+				<div class="modal-footer">
+					<button type="button" id="clickDelete" class="btn btn-primary">OK</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">キャンセル</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var listTask;
+		
+		$(document).ready(function() {
+		    $('#deleteTask').prop('disabled', true);
+		});
+		
+		
+		$('input:checkbox[name=task]').change(function() {
+			listTask = $(":checkbox:checked").map(function() {
+				return $(this).val();
+			}).get();
+			console.log(listTask);
+			if(listTask.length != 0) {
+	        	$('#deleteTask').prop('disabled', false);
+	        }else{
+	        	$('#deleteTask').prop('disabled', true);
+	        }
+		});
+
+		
+		function updateTaskByCheckBox(taskID) {
+			console.log(taskID);
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/updateTaskByCheckBox/",
+				data : taskID,
+				success : function() {
+					location.reload();
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+			});
+
+		}
+
+		$("#clickDelete").on("click", function() {
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/deleteTask/",
+				data : JSON.stringify(listTask),
+				success : function(result) {
+					location.reload();
+					listTask = {};
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+			});
+		});
+
+		function redirectEditTask(taskID) {
+			window.location = '/edit/' + taskID;
+		}
+	</script>
+</body>
+<style>
+.tablescoll {
+	border: 1px solid #dee2e6;
+	height: 470px;
+}
+
+
+.table1 th:nth-child(1), .table1 td:nth-child(1) {
+	white-space: nowrap;
+	overflow: hidden;
+	width: 29%;
+	max-width: 60px;
+	text-overflow: ellipsis;
+}
+
+.table2 th:nth-child(1), .table2 td:nth-child(1) {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 60px;
+	width: 37%
+}
+
+th:nth-child(2), th:nth-child(3), td:nth-child(2), td:nth-child(3) {
+	width: 18%
+}
+
+th:nth-child(4), td:nth-child(4) {
+	width: 15%
+}
+
+th:nth-child(5), th:nth-child(6), td:nth-child(5), td:nth-child(6) {
+	width: 10%;
+	text-align: center
+}
+
+#myTabContent tbody tr:hover {
+	background-color: #c1c1c1;
+}
+</style>
+</html>
