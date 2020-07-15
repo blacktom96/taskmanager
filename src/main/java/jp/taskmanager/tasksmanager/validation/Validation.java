@@ -20,8 +20,9 @@ public class Validation {
 			if(model.getTaitoru().length() >=300) {
 				errorItem.put("taitoru","タイトルは300文字以内で入力してください");
 				checkValidation = true;
+			}else {
+				errorItem.put("taitoru","");
 			}
-			errorItem.put("taitoru","");
 		}
 		if(model.getNaiYou().isEmpty() | null == model.getNaiYou()) {
 			errorItem.put("naiYou","内容は必須です。");
@@ -30,8 +31,9 @@ public class Validation {
 			if(model.getNaiYou().length() >=3000) {
 				errorItem.put("naiYou","内容は3000文字以内で入力してください");
 				checkValidation = true;
+			}else {
+				errorItem.put("naiYou","");
 			}
-			errorItem.put("naiYou","");
 		}
 		
 		if(model.getYuusenjuni().isEmpty() | null == model.getYuusenjuni()) {
@@ -71,8 +73,9 @@ public class Validation {
 			if(model.getYoteiBi().compareTo(model.getKanryoBi()) > 0) {
 				errorItem.put("kanryoBi","完了日は予定日以後の日付を入力して下さい。");
 				return checkValidation = true;
+			}else {
+				errorItem.put("kanryoBi","");
 			}
-			errorItem.put("kanryoBi","");
 		}
 		return checkValidation;
 		
