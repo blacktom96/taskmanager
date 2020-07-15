@@ -37,6 +37,8 @@ public class Validation {
 		if(model.getYuusenjuni().isEmpty() | null == model.getYuusenjuni()) {
 			errorItem.put("yuusenjuni","優先順位は必須です。");
 			checkValidation = true;
+		}else {
+			errorItem.put("yuusenjuni","");
 		}
 		
 		boolean checkFlg = false;
