@@ -62,7 +62,7 @@ public class Validation {
 			errorItem.put("kanryoBi","");
 		}else {
 			if(model.getKanryoBi().length() != 10) {
-				errorItem.put("kanryoBi","予定日の形式に誤りがあります。ｙｙｙｙ－ｍｍ－ddの形式で指定ください。");
+				errorItem.put("kanryoBi","予定日の形式に誤りがあります。ｙｙｙｙ-ｍｍ-ddの形式で指定ください。");
 				checkValidation = true;
 			}else {
 				checkFlg1 = true;

@@ -122,10 +122,10 @@ public class TaskManagerService {
 		LocalDateTime now = LocalDateTime.now();
 		
 		if("1" == option) {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss");
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
 			return dtf.format(now);
 		}else {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			return dtf.format(now);
 		}
 	}
