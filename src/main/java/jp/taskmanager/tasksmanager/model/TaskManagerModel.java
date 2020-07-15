@@ -16,13 +16,13 @@ public class TaskManagerModel {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer takusuID = null;    //タクス
+	private Integer takusuID = null; // タスクのID
 	
 	@Column(name="taitoru")
-	private String taitoru;  //内容
+	private String taitoru;// タイトルの内容
 	
 	@Column(name="naiyou")
-	private String naiYou;
+	private String naiYou;// タスクの内容をする予定です
 	
 	@Column(name="yoteibi")
 	private String yoteiBi;

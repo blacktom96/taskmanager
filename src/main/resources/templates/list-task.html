@@ -6,16 +6,16 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>ToDoリスト</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.slim.min.js" th:src="@{/js/jquery-3.2.1.slim.min.js}" ></script>
+<script type="text/javascript" src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+
+<script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
 </head>
 
 <body>
@@ -147,9 +147,8 @@
 			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript">
-		var listTask;
+		let listTask;
 		
 		$(document).ready(function() {
 		    $('#deleteTask').prop('disabled', true);
@@ -167,7 +166,7 @@
 	        	$('#deleteTask').prop('disabled', true);
 	        }
 		});
-
+	
 		
 		function updateTaskByCheckBox(taskID) {
 			console.log(taskID);
@@ -186,9 +185,9 @@
 					console.log("DONE");
 				}
 			});
-
+	
 		}
-
+	
 		$("#clickDelete").on("click", function() {
 			$.ajax({
 				type : "POST",
@@ -207,12 +206,13 @@
 				}
 			});
 		});
-
+	
 		function redirectEditTask(taskID) {
 			window.location = '/edit/' + taskID;
 		}
 	</script>
 </body>
+
 <style>
 .tablescoll {
 	border: 1px solid #dee2e6;
