@@ -37,13 +37,13 @@
 											<span class="text-danger" th:text="${errorItem.taitoru}"></span>
 									</div>
 									<div class="form-group col-md-4">
-										<label for="yuusenjuni" class="col-form-label">優先順位"</label> 
+										<label for="yuusenjuni" class="col-form-label">優先順位</label> 
 										<select id="yuusenjuni" class="form-control" th:field="*{yuusenjuni}">
 											<option th:value="'Low'" th:text="Low"></option>
 											<option class="text-warning" th:value="'Medium'" th:text="Medium"></option>
 											<option class="text-danger" th:value="'High'" th:text="High"></option>
 										</select>
-										
+										<span class="text-danger" th:text="${errorItem.yuusenjuni}"></span>
 									</div>
 								</div>
 							</div>

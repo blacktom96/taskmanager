@@ -176,6 +176,7 @@ public class TaskManagerService {
 		errorItem.put("naiYou","");
 		errorItem.put("yoteiBi","");
 		errorItem.put("kanryoBi","");
+		errorItem.put("yuusenjuni","");
 		
 		return errorItem;
 	}

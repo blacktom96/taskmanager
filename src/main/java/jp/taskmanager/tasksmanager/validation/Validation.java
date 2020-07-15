@@ -34,6 +34,11 @@ public class Validation {
 			errorItem.put("naiYou","");
 		}
 		
+		if(model.getYuusenjuni().isEmpty() | null == model.getYuusenjuni()) {
+			errorItem.put("yuusenjuni","優先順位は必須です。");
+			checkValidation = true;
+		}
+		
 		boolean checkFlg = false;
 		if(model.getYoteiBi().isEmpty() | null == model.getYoteiBi()) {
 			errorItem.put("yoteiBi","予定日は必須です。");
