@@ -39,7 +39,7 @@ public class TaskManagerController
 		return "list-task";
 	}
 
-	@RequestMapping(value = {"/edit", "/edit/{id}"})
+	@RequestMapping(value = {"/addNew", "/edit/{id}"})
 	public String editTaskById(Model model, @PathVariable("id") Optional<Integer> taskId) 
 							throws Exception 
 	{
